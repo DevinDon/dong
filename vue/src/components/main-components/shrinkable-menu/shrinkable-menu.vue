@@ -1,0 +1,73 @@
+<style lang="less">
+    @import './styles/menu.less';
+</style>
+
+<template>
+    <div :style="{background: bgColor}" class="ivu-shrinkable-menu">
+        <slot name="top"></slot>
+        <sidebar-menu
+            v-show="!shrink"
+            :menu-theme="theme"
+            :menu-list="menuList"
+            :open-names="openNames"
+            :my="my"
+            @on-change="handleChange"
+        ></sidebar-menu>
+    </div>
+</template>
+
+<script>
+import sidebarMenu from './components/sidebarMenu.vue'
+import util from '../../../libs/util'
+export default {
+  name: 'shrinkableMenu',
+  components: {
+    sidebarMenu
+  },
+  props: {
+    shrink: {
+      type: Boolean,
+      default: false
+    },
+    menuList: {
+      type: Array,
+      required: true
+    },
+    my: Object,
+    theme: {
+      type: String,
+      default: 'dark',
+      validator (val) {
+        return util.oneOf(val, ['dark', 'light'])
+      }
+    },
+    beforePush: {
+      type: Function
+    },
+    openNames: {
+      type: Array
+    }
+  },
+  computed: {
+    bgColor () {
+      return this.theme === 'dark' ? '#495060' : '#fff'
+    }
+  },
+  methods: {
+    handleChange (name) {
+      let willpush = true
+      if (this.beforePush !== undefined) {
+        if (!this.beforePush(name)) {
+          willpush = false
+        }
+      }
+      if (willpush) {
+        this.$router.push({
+          name: name
+        })
+      }
+      this.$emit('on-change', name)
+    }
+  }
+}
+</script>

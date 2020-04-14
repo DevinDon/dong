@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="priv.ls.prisonmanagement.dao.IPrisonerMapper">
+    <resultMap id="BaseResultMap" type="priv.ls.prisonmanagement.pojo.entity.Prisoner">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="info_id" jdbcType="INTEGER" property="infoId" />
+        <result column="jail_cell_id" jdbcType="INTEGER" property="jailCellId" />
+        <result column="violation" jdbcType="VARCHAR" property="violation" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    </resultMap>
+
+    <resultMap id="VOResultMap" type="priv.ls.prisonmanagement.pojo.vo.PrisonerVO">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="info_id" jdbcType="INTEGER" property="infoId" />
+        <result column="jail_cell_id" jdbcType="INTEGER" property="jailCellId" />
+        <result column="violation" jdbcType="VARCHAR" property="violation" />
+        <result column="name" jdbcType="VARCHAR" property="jailName" />
+        <result column="address" jdbcType="VARCHAR" property="address" />
+    </resultMap>
+
+    <select id="countByJailId" parameterType="integer" resultType="java.lang.Integer">
+        select count(id)
+        from prisoner
+        WHERE jail_cell_id = #{id}
+    </select>
+
+    <select id="get" parameterType="priv.ls.prisonmanagement.pojo.entity.Prisoner" resultMap="BaseResultMap">
+        select *
+        from prisoner
+        <where>
+            <if test="infoId != null">
+                info_id = #{infoId}
+            </if>
+        </where>
+    </select>
+
+    <select id="list" parameterType="priv.ls.prisonmanagement.pojo.entity.Prisoner" resultMap="VOResultMap">
+        SELECT
+        prisoner.id id,
+        violation,
+        jail_cell_id,
+        name,
+        address,
+        info_id
+        FROM prisoner
+        LEFT JOIN jail_cell ON jail_cell.id = prisoner.jail_cell_id
+        LEFT JOIN jail ON jail.id = jail_id
+        <where>
+            <if test="infoId != null">
+                info_id = #{infoId}
+            </if>
+            <if test="jailCellId != null">
+                AND jail_cell_id = #{jailCellId}
+            </if>
+        </where>
+        order by prisoner.create_time desc
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="priv.ls.prisonmanagement.pojo.entity.Prisoner">
+        insert into prisoner (violation) values (#{violation});
+    </insert>
+
+    <update id="update" parameterType="priv.ls.prisonmanagement.pojo.entity.Prisoner">
+        update prisoner
+          <set>
+              <if test="infoId != null">
+                  info_id = #{infoId},
+              </if>
+              <if test="violation != null">
+                  violation = #{violation},
+              </if>
+              <if test="jailCellId != null">
+                  jail_cell_id = #{jailCellId},
+              </if>
+              <if test="updateTime != null">
+                  update_time = #{updateTime}
+              </if>
+          </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="integer">
+        DELETE FROM prisoner WHERE id = #{id};
+    </delete>
+</mapper>

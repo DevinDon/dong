@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="priv.ls.prisonmanagement.dao.IJailMapper">
+
+    <resultMap id="BaseResultMap" type="priv.ls.prisonmanagement.pojo.entity.Jail">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="address" jdbcType="VARCHAR" property="address" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    </resultMap>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="priv.ls.prisonmanagement.pojo.entity.Jail">
+        insert into jail (name, address) values (#{name}, #{address});
+    </insert>
+
+    <update id="update" parameterType="priv.ls.prisonmanagement.pojo.entity.Jail">
+        update jail
+            <set>
+                <if test="name != null">
+                    name = #{name},
+                </if>
+                <if test="address != null">
+                    address = #{address},
+                </if>
+                <if test="updateTime != null">
+                    update_time = #{updateTime}
+                </if>
+            </set>
+        where id = #{id};
+    </update>
+
+    <select id="list" parameterType="priv.ls.prisonmanagement.pojo.entity.Jail" resultMap="BaseResultMap">
+        select *
+        from jail
+        <where>
+            <if test="name != null">
+                name like concat('%', #{name}, '%')
+            </if>
+            <if test="address != null">
+                AND address like concat('%', #{address}, '%')
+            </if>
+        </where>
+    </select>
+
+    <select id="get" parameterType="priv.ls.prisonmanagement.pojo.entity.Jail" resultMap="BaseResultMap">
+        select *
+        from jail
+        WHERE id = #{id};
+    </select>
+
+    <delete id="delete" parameterType="integer">
+        DELETE FROM jail WHERE id = #{id};
+    </delete>
+</mapper>
