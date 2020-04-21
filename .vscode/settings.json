@@ -1,3 +1,4 @@
 {
-  "java.home": "/root/jdk"
+  "java.home": "/root/jdk",
+  "java.configuration.updateBuildConfiguration": "automatic"
 }
