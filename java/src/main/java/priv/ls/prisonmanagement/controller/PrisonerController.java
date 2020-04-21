@@ -15,26 +15,27 @@ import javax.annotation.Resource;
 @RequestMapping("/prisoner")
 public class PrisonerController {
 
-    @Resource
-    private IPrisonerService prisonerService;
+  @Resource
+  private IPrisonerService prisonerService;
 
-    @PostMapping
-    public AjaxResult insert(Prisoner prisoner){
-        return prisonerService.insert(prisoner);
-    }
+  @PostMapping
+  public AjaxResult insert(Prisoner prisoner) {
+    return prisonerService.insert(prisoner);
+  }
 
-    @GetMapping
-    public AjaxResult list(PrisonerDTO prisonerDTO){
-        return prisonerService.list(prisonerDTO);
-    };
+  @GetMapping
+  public AjaxResult list(PrisonerDTO prisonerDTO) {
+    return prisonerService.list(prisonerDTO);
+  };
 
-    @PostMapping("/update")
-    public AjaxResult update(Prisoner prisoner){
-        return prisonerService.update(prisoner);
-    }
+  @PutMapping("/update")
+  public AjaxResult update(Prisoner prisoner) {
+    return prisonerService.update(prisoner);
+  }
 
-    @PostMapping("/delete")
-    public AjaxResult delete(Integer id){
-        return prisonerService.delete(id);
-    };
+  @DeleteMapping("/delete")
+  public AjaxResult delete(Integer id) {
+    return prisonerService.delete(id);
+  };
+
 }

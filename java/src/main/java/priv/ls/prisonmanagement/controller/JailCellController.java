@@ -15,26 +15,27 @@ import javax.annotation.Resource;
 @RequestMapping("/jail/cell")
 public class JailCellController {
 
-    @Resource
-    private IJailCellService jailCellService;
+  @Resource
+  private IJailCellService jailCellService;
 
-    @PostMapping
-    public AjaxResult insert(JailCell jailCell){
-        return jailCellService.insert(jailCell);
-    }
+  @PostMapping
+  public AjaxResult insert(JailCell jailCell) {
+    return jailCellService.insert(jailCell);
+  }
 
-    @PostMapping("/update")
-    public AjaxResult update(JailCell jailCell){
-        return jailCellService.update(jailCell);
-    }
+  @PutMapping("/update")
+  public AjaxResult update(JailCell jailCell) {
+    return jailCellService.update(jailCell);
+  }
 
-    @PostMapping("/delete")
-    public AjaxResult delete(Integer id){
-        return jailCellService.delete(id);
-    }
+  @DeleteMapping("/delete")
+  public AjaxResult delete(Integer id) {
+    return jailCellService.delete(id);
+  }
 
-    @PostMapping("/list")
-    public AjaxResult list(JailCellDTO jailCell){
-        return jailCellService.list(jailCell);
-    }
+  @PostMapping("/list")
+  public AjaxResult list(JailCellDTO jailCell) {
+    return jailCellService.list(jailCell);
+  }
+
 }

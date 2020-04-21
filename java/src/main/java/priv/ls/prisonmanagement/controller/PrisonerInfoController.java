@@ -16,21 +16,22 @@ import java.text.ParseException;
 @RequestMapping("/prisoner/info")
 public class PrisonerInfoController {
 
-    @Resource
-    private IPrisonerInfoService prisonerInfoService;
+  @Resource
+  private IPrisonerInfoService prisonerInfoService;
 
-    @PostMapping
-    public AjaxResult insert(PrisonerInfoDTO prisonerInfo) throws ParseException {
-        return prisonerInfoService.insert(prisonerInfo);
-    };
+  @PostMapping
+  public AjaxResult insert(PrisonerInfoDTO prisonerInfo) throws ParseException {
+    return prisonerInfoService.insert(prisonerInfo);
+  };
 
-    @PostMapping("/update")
-    public AjaxResult update(PrisonerInfoDTO prisonerInfo) throws ParseException {
-        return prisonerInfoService.update(prisonerInfo);
-    };
+  @PostMapping("/update")
+  public AjaxResult update(PrisonerInfoDTO prisonerInfo) throws ParseException {
+    return prisonerInfoService.update(prisonerInfo);
+  };
 
-    @GetMapping
-    public AjaxResult get(Integer id){
-        return prisonerInfoService.get(id);
-    };
+  @GetMapping
+  public AjaxResult get(Integer id) {
+    return prisonerInfoService.get(id);
+  };
+
 }

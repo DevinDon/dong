@@ -15,31 +15,32 @@ import javax.annotation.Resource;
 @RequestMapping("/user")
 public class UserController {
 
-    @Resource
-    private IUserService userService;
+  @Resource
+  private IUserService userService;
 
-    @PostMapping("/login")
-    public AjaxResult login(User user){
-        return userService.login(user);
-    }
+  @PostMapping("/login")
+  public AjaxResult login(User user) {
+    return userService.login(user);
+  }
 
-    @PostMapping
-    public AjaxResult insert(User user){
-        return userService.insert(user);
-    }
+  @PostMapping
+  public AjaxResult insert(User user) {
+    return userService.insert(user);
+  }
 
-    @PostMapping("/update")
-    public AjaxResult update(User user){
-        return userService.update(user);
-    }
+  @PutMapping("/update")
+  public AjaxResult update(User user) {
+    return userService.update(user);
+  }
 
-    @PostMapping("/delete")
-    public AjaxResult delete(Integer id){
-        return userService.delete(id);
-    }
+  @DeleteMapping("/delete")
+  public AjaxResult delete(Integer id) {
+    return userService.delete(id);
+  }
 
-    @GetMapping
-    public AjaxResult list(Page page){
-        return userService.list(page);
-    }
+  @GetMapping
+  public AjaxResult list(Page page) {
+    return userService.list(page);
+  }
+
 }

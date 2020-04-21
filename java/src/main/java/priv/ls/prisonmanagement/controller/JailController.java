@@ -15,26 +15,27 @@ import javax.annotation.Resource;
 @RequestMapping("/jail")
 public class JailController {
 
-    @Resource
-    private IJailService jailService;
+  @Resource
+  private IJailService jailService;
 
-    @PostMapping
-    public AjaxResult insert(Jail jail){
-        return jailService.insert(jail);
-    }
+  @PostMapping
+  public AjaxResult insert(Jail jail) {
+    return jailService.insert(jail);
+  }
 
-    @PostMapping("/update")
-    public AjaxResult update(Jail jail){
-        return jailService.update(jail);
-    }
+  @PutMapping("/update")
+  public AjaxResult update(Jail jail) {
+    return jailService.update(jail);
+  }
 
-    @PostMapping("/delete")
-    public AjaxResult delete(String id){
-        return jailService.delete(id);
-    }
+  @DeleteMapping("/delete")
+  public AjaxResult delete(String id) {
+    return jailService.delete(id);
+  }
 
-    @GetMapping
-    public AjaxResult list(Page page){
-        return jailService.list(page);
-    }
+  @GetMapping
+  public AjaxResult list(Page page) {
+    return jailService.list(page);
+  }
+
 }
