@@ -10,9 +10,8 @@ import org.springframework.context.annotation.ComponentScan;
 @MapperScan("priv.ls.prisonmanagement.dao")
 public class PrisonManagementApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(PrisonManagementApplication.class, args);
-	}
+  public static void main(String[] args) {
+    SpringApplication.run(PrisonManagementApplication.class, args);
+  }
 
 }
-
